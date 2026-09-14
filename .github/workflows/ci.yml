@@ -1,0 +1,30 @@
+name: Snowflake CI
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate repository
+        run: |
+          echo "Repository checkout successful"
+          find sql -type f -name "*.sql"
+
+      - name: Check SQL files
+        run: |
+          test -f sql/Newsql.sql
+          test -f sql/New2ndfile.sql
+          echo "Required SQL files exist"
